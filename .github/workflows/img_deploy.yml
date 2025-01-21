@@ -18,7 +18,7 @@ jobs:
     uses: hotosm/gh-workflows/.github/workflows/image_build.yml@2.0.9
     with:
       image_tags: |
-        "ghcr.io/${{ github.repository }}:ci-${{ github.ref_name }}"
+        "ghcr.io/${{ github.repository }}:${{ github.ref_name }}"
 
   invalidate-cache:
     runs-on: ubuntu-latest
