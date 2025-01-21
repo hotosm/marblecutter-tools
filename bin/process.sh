@@ -332,9 +332,9 @@ if [[ "$output" =~ ^s3:// ]]; then
 
   >&2 echo "Uploading..."
   update_status status "Uploading..."
-  aws s3 cp $intermediate "${output}.tif"
-  aws s3 cp $footprint "${output}.json"
-  aws s3 cp $thumb "${output}.png"
+  aws s3 cp --acl public-read $intermediate "${output}.tif"
+  aws s3 cp --acl public-read $footprint "${output}.json"
+  aws s3 cp --acl public-read $thumb "${output}.png"
 else
   mv $intermediate "${output}.tif"
   mv $footprint "${output}.json"

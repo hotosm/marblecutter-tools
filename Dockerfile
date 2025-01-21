@@ -1,5 +1,5 @@
 FROM quay.io/mojodna/gdal:v2.3.x
-LABEL maintainer="Seth Fitzsimmons <seth@mojodna.net>"
+LABEL maintainer="dk@hotosm.org"
 
 ARG http_proxy
 
