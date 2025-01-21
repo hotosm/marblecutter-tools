@@ -1,5 +1,4 @@
-FROM ghcr.io/osgeo/gdal:ubuntu-full-3.6.0
-
+FROM ghcr.io/osgeo/gdal:ubuntu-full-3.10.1
 ARG http_proxy
 
 ENV DEBIAN_FRONTEND noninteractive
