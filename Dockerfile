@@ -1,5 +1,4 @@
-FROM quay.io/mojodna/gdal:v2.3.x
-LABEL maintainer="dk@hotosm.org"
+FROM ghcr.io/osgeo/gdal:ubuntu-full-3.6.0
 
 ARG http_proxy
 
@@ -14,10 +13,12 @@ RUN apt-get update \
     git \
     jq \
     nfs-common \
+    build-essential \
     parallel \
-    python-pip \
-    python-wheel \
-    python-setuptools \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-setuptools \
     unzip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -34,17 +35,12 @@ ENV VSI_CACHE_SIZE 536870912
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 
-RUN apt-get update
-RUN apt-get install -y build-essential checkinstall
-RUN apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
-RUN apt-get install -y wget
-RUN wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz
-RUN tar -xvf Python-3.6.3.tgz
-RUN cd Python-3.6.3 && ./configure && make && make install
-
 RUN pip3 install --upgrade setuptools
-RUN pip3 install rasterio haversine cython awscli
+RUN pip3 install rasterio haversine cython awscli requests
 
 COPY bin/* /opt/marblecutter-tools/bin/
+
+RUN chmod +x /opt/marblecutter-tools/bin/process.sh
+RUN chmod +x /opt/marblecutter-tools/bin/process.py
 
 RUN ln -s /opt/marblecutter-tools/bin/* /usr/local/bin/ && mkdir -p /efs
